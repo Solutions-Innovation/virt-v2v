@@ -289,6 +289,7 @@ read the man page virt-v2v-inspector(1).
     ks = opthandle.ks;
     memsize;
     network_map;
+    no_trim = false;
     root_choice;
     smp;
     static_ips;

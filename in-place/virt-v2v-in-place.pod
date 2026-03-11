@@ -213,6 +213,18 @@ Change the amount of memory allocated when doing the conversion.
 Virt-v2v-in-place will usually choose a suitable default.  Increase
 this if you see that the conversion step is running out of memory.
 
+=item B<--no-trim>
+
+Don't perform fstrim on guest filesystems during conversion.
+
+By default virt-v2v-in-place trims all guest filesystems after
+conversion to mark unused blocks.  For in-place conversions this
+provides no benefit (there is no overlay or copy step), and on block
+storage where TRIM/UNMAP operations are slow (e.g. because of
+fragmented free space), this step can take a very long time.
+
+Use this option to skip the fstrim step entirely.
+
 =item B<-n> in:out
 
 =item B<-n> out

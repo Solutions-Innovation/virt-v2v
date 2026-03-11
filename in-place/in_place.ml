@@ -151,6 +151,7 @@ let rec main () =
   let set_root_choice = Types.set_root_choice root_choice in
 
   (* Other options that we handle here. *)
+  let no_trim = ref false in
   let print_source = ref false in
 
   let input_modes =
@@ -185,6 +186,8 @@ let rec main () =
                                     s_"Map network ‘in’ to ‘out’";
     [ S 'O' ],       Getopt.String ("output.xml", set_output_xml_option),
                                     s_"Set the output filename";
+    [ L"no-trim" ],  Getopt.Set no_trim,
+                                    s_"Don't perform fstrim on guest filesystems";
     [ L"print-source" ], Getopt.Set print_source,
                                     s_"Print source and stop";
     [ L"root" ],     Getopt.String ("ask|... ", set_root_choice),
@@ -319,6 +322,7 @@ read the man page virt-v2v-in-place(1).
   let conv_options = {
     Convert.block_driver = block_driver;
     keep_serial_console = true;
+    no_trim = !no_trim;
     ks = opthandle.ks;
     memsize;
     network_map;

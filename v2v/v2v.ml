@@ -433,6 +433,7 @@ read the man page virt-v2v(1).
   let conv_options = {
     Convert.block_driver = block_driver;
     keep_serial_console = not remove_serial_console;
+    no_trim = false;
     ks = opthandle.ks;
     memsize;
     network_map;

@@ -33,6 +33,7 @@ module G = Guestfs
 type options = {
   block_driver : guestcaps_block_type;
   keep_serial_console : bool;
+  no_trim : bool;
   ks : key_store;
   memsize : int option;
   network_map : Networks.t;
@@ -156,8 +157,11 @@ let rec convert input_disks options source =
    * because unused blocks are marked in the overlay and thus do
    * not have to be copied.
    *)
-  message (f_"Mapping filesystem data to avoid copying unused and blank areas");
-  do_fstrim g inspect;
+  if not options.no_trim then (
+    message (f_"Mapping filesystem data to avoid copying unused and blank areas");
+    do_fstrim g inspect
+  ) else
+    debug "info: skipping fstrim (--no-trim flag)";
 
   (* Check (fsck) the filesystems after conversion. *)
   g#umount_all ();

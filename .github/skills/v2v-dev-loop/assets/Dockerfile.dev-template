@@ -1,0 +1,7 @@
+
+# === DEV OVERRIDE: custom virt-v2v-in-place ===
+# This overlay replaces the RPM-installed virt-v2v-in-place with a
+# custom build from source. Appended by the v2v-dev-loop agent skill.
+COPY baseimage/files/virt-v2v-in-place /usr/bin/virt-v2v-in-place
+RUN chmod +x /usr/bin/virt-v2v-in-place && \
+    virt-v2v-in-place --help 2>&1 | head -5
